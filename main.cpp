@@ -46,24 +46,28 @@ bool sonMayusculas(list<string> palabras)
 vector<int> eliminarRepetidos(vector<int> vector_a)
 {
     vector<int> respuesta;
-    /*for(int i = 0; i < vector_a.size(); i++)
+    for(int i = 0; i < vector_a.size(); i++)
     {
         if(i == 0){
             respuesta.push_back(vector_a[i]);
         }
         else{
+            int cont = 0;
             for(int m = 0; m < respuesta.size(); m++)
             {
-                if(respuesta[m] == vector_a[i]){
-                    continue;
-                }
-                else{
-                    respuesta.push_back(vector_a[i]);
+                if(vector_a[i] == respuesta[m]){
+                    cont++;
                 }
             }
-            
+            if(cont >= 1)
+            {
+                continue;
+            }
+            else{
+                respuesta.push_back(vector_a[i]);
+            }
         }
-    }*/
+    }
     
     return respuesta;
 }
@@ -72,10 +76,10 @@ vector<int> eliminarRepetidos(vector<int> vector_a)
 void guardar(string nombre_archivo, Pais* pais)
 {
     ofstream mi_archivo(nombre_archivo.c_str());
-    mi_archivo<<pais->nombre;
-    mi_archivo<<"\n"<<pais->capital;
-    mi_archivo<<"\n"<<pais->habitantes;
-    mi_archivo<<"\n"<<pais->superficie;
+    mi_archivo<<pais->nombre<<endl;
+    mi_archivo<<pais->capital<<endl;
+    mi_archivo<<pais->habitantes<<endl;
+    mi_archivo<<pais->superficie<<endl;
     mi_archivo.close();
 }
 
@@ -85,14 +89,17 @@ Pais* abrir(string nombre_archivo)
     ifstream mi_archivo(nombre_archivo.c_str());
     string name,capital;
     int habita,superfi;
+
     while(mi_archivo>>name){
-        
+        mi_archivo>>capital;
+        mi_archivo>>habita;
+        mi_archivo>>superfi;
     }
+    mi_archivo.close();
     
 
     
-    Pais miPais(name,capital,habita,superfi);
-    Pais* pais = &miPais;
+    Pais* pais = new Pais(name,capital,habita,superfi);
     return pais;
 }
 
